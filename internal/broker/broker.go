@@ -1,37 +1,10 @@
-package main
+package broker
 
 import (
 	"fmt"
 	"log"
 	"net/http"
-	"text/template"
-	"time"
-
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
 )
-
-func main() {
-	broker := NewServer()
-
-	go func() {
-		for {
-			time.Sleep(time.Second)
-			eventString := fmt.Sprintf("the time is %v", time.Now().Format(time.RFC850))
-			log.Println("Receiving event")
-			broker.Notifier <- []byte(eventString)
-		}
-	}()
-
-	r := chi.NewRouter()
-	r.Use(middleware.Logger)
-	tmpl := template.Must(template.ParseFiles("web/index.html"))
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.Execute(w, nil)
-	})
-	r.Get("/get_datetime_sse", broker.ServeHTTP)
-	http.ListenAndServe(":3000", r)
-}
 
 type Broker struct {
 
@@ -137,3 +110,4 @@ func (broker *Broker) ServeHTTP(r http.ResponseWriter, req *http.Request) {
 	}
 
 }
+
