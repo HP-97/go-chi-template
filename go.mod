@@ -5,6 +5,7 @@ go 1.21.1
 require github.com/go-chi/chi v1.5.5
 
 require (
+	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
