@@ -17,8 +17,7 @@ func NewHttpHandler(websiteService ports.WebsiteService) *HTTPHandler {
 	}
 }
 
-func (hdl *HTTPHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	websites := hdl.websiteService.GetAll()
-	w.Write([]byte(fmt.Sprintf("websites = %v", websites)))
+func (hdl *HTTPHandler) Index(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte(fmt.Sprintf("<p>hello</p>")))
 }
 

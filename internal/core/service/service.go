@@ -1,7 +1,7 @@
 package service
 
 import (
-	"example.com/go_chantest/internal/core/domain"
+	// "example.com/go_chantest/internal/core/domain"
 	"example.com/go_chantest/internal/core/ports"
 )
 
@@ -15,6 +15,8 @@ func New(websiteRepository ports.WebsiteRepository) *service {
 	}
 }
 
-func (srv *service) GetAll() []domain.Website {
-	return srv.websiteRepository.GetAll()
-}
+// define service functions here! 
+// Example: 
+// func (srv *service) GetAll() []domain.Website {
+// 	return srv.websiteRepository.GetAll()
+// }
