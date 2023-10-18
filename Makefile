@@ -11,7 +11,7 @@ format:
 
 .PHONY: run
 run:
-	npx prettier -l .
+	npx prettier -l -w .
 	go run ./cmd/.
 
 .PHONY: clean

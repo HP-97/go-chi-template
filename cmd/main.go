@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -15,6 +16,8 @@ import (
 func main() {
 	config.InitConfig()
 
+	c := config.GetConfig()
+
 	websiteRepository := repositories.LoadMemKVS()
 	websiteService := service.New(websiteRepository)
 	websiteHandler := handlers.NewHttpHandler(websiteService)
@@ -23,6 +26,7 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Get("/", websiteHandler.Index)
 
-	log.Printf("running server on :3000!")
-	http.ListenAndServe(":3000", r)
+	serverStr := fmt.Sprintf("%s:%s", c.GetString("host.addr"),c.GetString("host.port"))
+	log.Printf("running server on %s!", serverStr)
+	http.ListenAndServe(serverStr, r)
 }
