@@ -7,4 +7,15 @@ help:           ## Show this help.
 ## Format all .go files
 format:
 	go fmt
+	npx prettier -l -w .
+
+.PHONY: run
+run:
+	npx prettier -l .
+	go run ./cmd/.
+
+.PHONY: clean
+## Clean node_modules
+clean:
+	rm -rf node_modules
 
