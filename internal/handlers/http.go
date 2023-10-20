@@ -17,12 +17,9 @@ var content embed.FS
 
 //go:embed public
 var publicEmbed embed.FS
-
-var indexTmpl *template.Template
-
 var publicContent fs.FS
 
-var publicHTTPFS http.Handler
+var indexTmpl *template.Template
 
 func init() {
 	data, err := content.ReadFile("templates/index.html")
