@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"example.com/go_chantest/internal/config"
+	"example.com/go_chantest/internal/config"		
 	"example.com/go_chantest/internal/core/service"
 	"example.com/go_chantest/internal/handlers"
 	"example.com/go_chantest/internal/repositories"
@@ -25,6 +25,7 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Get("/", websiteHandler.Index)
+	handlers.FileServer(r, "/public")
 
 	serverStr := fmt.Sprintf("%s:%s", c.GetString("host.addr"),c.GetString("host.port"))
 	log.Printf("running server on %s!", serverStr)
