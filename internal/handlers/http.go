@@ -53,10 +53,6 @@ func (hdl *HTTPHandler) Index(w http.ResponseWriter, r *http.Request) {
 	indexTmpl.Execute(w, nil)
 }
 
-func (hdl *HTTPHandler) Public() fs.FS {
-	return publicContent
-}
-
 // FileServer conveniently sets up a http.FileServer handler to serve
 // static files from a http.FileSystem.
 func FileServer(r chi.Router, path string) {
