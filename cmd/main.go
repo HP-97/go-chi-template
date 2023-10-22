@@ -1,13 +1,11 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
-	"example.com/go_chantest/internal/config"
+	"example.com/go_chantest/internal/config"		
 	"example.com/go_chantest/internal/core/service"
 	"example.com/go_chantest/internal/handlers"
 	"example.com/go_chantest/internal/repositories"
@@ -16,26 +14,20 @@ import (
 )
 
 func main() {
-	filepathPtr := flag.String("path", "", "path to website config file")
-	flag.Parse()
-
 	config.InitConfig()
 
-	f, err := os.ReadFile(*filepathPtr)
-	if err != nil {
-		log.Fatal(fmt.Sprintf("unable to print file %s", *filepathPtr))
-	}
-	fStr := string(f)
+	c := config.GetConfig()
 
-	fmt.Printf("file %s contains %s\n", *filepathPtr, fStr)
-
-	websiteRepository := repositories.LoadMemKVS(fStr)
+	websiteRepository := repositories.LoadMemKVS()
 	websiteService := service.New(websiteRepository)
 	websiteHandler := handlers.NewHttpHandler(websiteService)
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
-	r.Get("/", websiteHandler.GetAll)
+	r.Get("/", websiteHandler.Index)
+	handlers.FileServer(r, "/public")
 
-	http.ListenAndServe(":3000", r)
+	serverStr := fmt.Sprintf("%s:%s", c.GetString("host.addr"),c.GetString("host.port"))
+	log.Printf("running server on %s!", serverStr)
+	http.ListenAndServe(serverStr, r)
 }

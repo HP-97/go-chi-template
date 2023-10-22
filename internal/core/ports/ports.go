@@ -1,11 +1,9 @@
 package ports
 
-import "example.com/go_chantest/internal/core/domain"
+// import "example.com/go_chantest/internal/core/domain"
 
-type WebsiteRepository interface {
-	GetAll() ([]domain.Website)
-}
+// define repository functions here
+type WebsiteRepository interface {}
 
-type WebsiteService interface {
-	GetAll() ([]domain.Website)
-}
+// define service functions here
+type WebsiteService interface {}
